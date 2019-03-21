@@ -5,12 +5,18 @@ const path = require('path')
 const express = require('express')
 const chalk = require('chalk')
 const hbs = require('hbs')
-
+const bp = require("body-parser")
 //My local files
 const login = require('./login.js')
 
 //Express application set up
 const app = express();
+
+
+// For handling POST requests
+app.use(bp.json())
+app.use(bp.urlencoded({extended:false}))
+
 
 //const viewsDirectory = path.join(__dirname,'../public')
 //app.use(express.static(viewsDirectory))
