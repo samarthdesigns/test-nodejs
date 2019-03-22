@@ -5,21 +5,21 @@ const path = require('path')
 const express = require('express')
 const chalk = require('chalk')
 const hbs = require('hbs')
-const bp = require("body-parser")
+const bodyParser = require('body-parser')
+
 //My local files
 const login = require('./login.js')
+const mentors = require('./mentors.js')
 
 //Express application set up
 const app = express();
 
+//Body Parser Set Up
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended:false}))
 
-// For handling POST requests
-app.use(bp.json())
-app.use(bp.urlencoded({extended:false}))
-
-
-//const viewsDirectory = path.join(__dirname,'../public')
-//app.use(express.static(viewsDirectory))
+const publicDirectory = path.join(__dirname,'../public')
+app.use(express.static(publicDirectory))
 
 app.set('view engine','hbs')
 app.set('views',path.join(__dirname,'../templates/views'))
@@ -30,48 +30,53 @@ app.get('',(req, res) => {
 })
 
 app.get('/login',(req, res) => {
-    if(req.query){
-        login.login(req.query.userName,req.query.password, (error, response) => {
+    res.render('login')
+})
+
+app.post('/login',(req, res)=>{
+    if(req.body){
+        login.login(req.body.userName,req.body.password, (error, response) => {
             if(error){
                 res.render('login',{
                     message: error
                 })
             }
             else{
-                res.render('chooseMentor',{
-                    name:req.query.userName
+                mentors.mentorsChoose(req.body.userName,(error, response) => {
+                    if(error){
+                        res.render('chooseMentor',{
+                            message:error
+                        })
+                    }
+                    else{
+                        res.render('chooseMentor',{
+                            message: response
+                        })
+                    }
                 })
             }
         })
     }
-    else{
-        res.render('login')
+})
+
+app.get('/register',(req, res) => {
+    res.render('register')
+})
+
+app.post('/register',(req, res)=>{
+    if(req.body){
+        login.register(req.body.userName,req.body.password,req.body.confirmPassword,req.body.fullName, (error, response) => {
+            if(error){
+                res.render('register',{
+                    message: error
+                })
+            }
+            else{
+                res.render('login')
+            }
+        })
     }
 })
-
-app.post('/login',(req, res)=>{
-    res.send(req.body)
-})
-
-// app.get('/register',(req, res) => {
-//     if(req.query){
-//         login.register(req.query.userName,req.query.password,req.query.confirmPassword,req.query.fullName, (error, response) => {
-//             if(error){
-//                 res.render('register',{
-//                     message: error
-//                 })
-//             }
-//             else{
-//                 res.render('register',{
-//                     name:response
-//                 })
-//             }
-//         })
-//     }
-//     else{
-
-//     }
-// })
 
 app.get('/chooseMentor',(req, res) => {
     res.render('chooseMentor')

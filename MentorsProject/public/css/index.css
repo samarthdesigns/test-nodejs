@@ -1,0 +1,106 @@
+body{
+    padding: 0px;
+    margin: 0px;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Lato:300,700');
+
+.main{
+    height: 100vh;
+    width: 100%;
+    font-family: 'Lato',sans-serif;
+}
+
+.righter{
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    width: 50%;
+    height: 100vh;
+    background: url('https://www.bracknell-forest.gov.uk/sites/default/files/teaching-header-image.jpg') center center fixed;
+    background-size: cover;
+}
+
+.lefter{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 50%;
+    height: 100vh;
+    background: rgba(255, 255, 255, 1)
+}
+
+.login-holder{
+    height: auto;
+    width: calc(100%-50px);
+    max-width: 500px;
+    position: relative;
+    top: 50%;
+    transform: translate(0%,-50%);
+    margin-left: 50px;
+}
+
+.login-holder input{
+    display: block;
+    margin-bottom:20px;
+}
+
+.inputText{
+    height: 65px;
+    width: 100%;
+    border: 2px solid #141414;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 18px;
+    font-weight: 300;
+}
+
+.inputButton{
+    height: 65px;
+    width: auto;
+    background: #141414;
+    color: #ffffff;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+input:focus{
+    outline: none;
+}
+
+.links{
+    font-size: 14px;
+    color: #141414;
+    font-weight: 700;
+}
+
+.warning{
+    font-size: 14px;
+    font-weight: 700;
+    color: red;
+}
+
+@media (max-width:1200px){
+    .lefter{
+        position: absolute;
+        top:50vh;
+        width: 100%;
+        height: auto;
+    }
+
+    .righter{
+        position: absolute;
+        top: 0px;
+        width: 100%;
+        height: 50vh;
+    }
+
+    .login-holder{
+        padding-top: 100px;
+        transform: translate(0%,0%);
+        width: 80%;
+        margin: auto auto;
+    }
+}
