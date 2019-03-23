@@ -42,7 +42,7 @@ app.post('/login',(req, res)=>{
                 })
             }
             else{
-                mentors.mentorsChoose(req.body.userName,(error, response) => {
+                mentors.mentorsChecker(req.body.userName,(error, response) => {
                     if(error){
                         res.render('chooseMentor',{
                             message:error
@@ -72,6 +72,7 @@ app.post('/register',(req, res)=>{
                 })
             }
             else{
+                mentors.mentorAdder(req.body.userName)
                 res.render('login')
             }
         })
